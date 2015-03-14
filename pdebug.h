@@ -28,7 +28,7 @@ inline const char *pDebug(const std::string prettyFunction)
 
 inline std::string pFuncInfo(const std::string prettyFunction)
 {
-    size_t colons = prettyFunction.find("::");
+    size_t colons = prettyFunction.rfind("::");
     // workaround for functions which are not belong to any class
     if (colons == std::string::npos)
         colons = prettyFunction.rfind("(");
