@@ -19,6 +19,8 @@
 #ifndef PRETTY_DEBUG_H
 #define PRETTY_DEBUG_H
 
+#include <string>
+
 
 inline const char *pDebug(const std::string prettyFunction)
 {
