@@ -16,38 +16,20 @@
  ***************************************************************************/
 
 
-#ifndef PRETTY_DEBUG_H
-#define PRETTY_DEBUG_H
-
-#include <string>
-
-
-inline const char *pDebug(const std::string prettyFunction)
-{
-    return prettyFunction.c_str();
-}
-
-
-inline std::string pFuncInfo(const std::string prettyFunction)
-{
-    size_t colons = prettyFunction.rfind("::");
-    // workaround for functions which are not belong to any class
-    if (colons == std::string::npos)
-        colons = prettyFunction.rfind("(");
-    size_t begin = prettyFunction.substr(0, colons).rfind(" ") + 1;
-    size_t end = prettyFunction.rfind("(") - begin;
-
-    return "[" + prettyFunction.substr(begin, end) + "]";
-}
-
-
-#define PDEBUG pDebug(pFuncInfo(__PRETTY_FUNCTION__))
-
+#include <pdebug.h>
 
 #if QT_VERSION >= 0x050000
-#include <QDateTime>
-void debugString(QtMsgType type, const QMessageLogContext &context, const QString &msg);
-#endif /* QT_VERSION >= 0x050000 */
 
 
-#endif /* PRETTY_DEBUG_H */
+void debugString(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context)
+    Q_UNUSED(type)
+
+    QByteArray localMsg = msg.toLocal8Bit();
+    QByteArray timeNow = QDateTime::currentDateTime().toString(QString("yyyy-MM-ddTHH:mm:ss.zzzZ")).toLocal8Bit();
+    fprintf(stderr, "[%s]%s\n", timeNow.constData(), localMsg.constData());
+}
+
+
+#endif
