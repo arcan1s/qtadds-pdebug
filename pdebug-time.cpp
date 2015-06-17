@@ -16,7 +16,7 @@
  ***************************************************************************/
 
 
-#include <pdebug-time.h>
+#include "pdebug-time.h"
 
 
 void debugString(QtMsgType type, const QMessageLogContext &context, const QString &msg)
