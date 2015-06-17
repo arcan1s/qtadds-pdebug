@@ -16,9 +16,7 @@
  ***************************************************************************/
 
 
-#include <pdebug.h>
-
-#if QT_VERSION >= 0x050000
+#include <pdebug-time.h>
 
 
 void debugString(QtMsgType type, const QMessageLogContext &context, const QString &msg)
@@ -31,5 +29,3 @@ void debugString(QtMsgType type, const QMessageLogContext &context, const QStrin
     fprintf(stderr, "[%s]%s\n", timeNow.constData(), localMsg.constData());
 }
 
-
-#endif

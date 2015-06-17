@@ -16,31 +16,13 @@
  ***************************************************************************/
 
 
-#ifndef PRETTY_DEBUG_H
-#define PRETTY_DEBUG_H
+#ifndef PRETTY_DEBUG_TIME_H
+#define PRETTY_DEBUG_TIME_H
 
-#include <string>
-
-
-inline const char *pDebug(const std::string prettyFunction)
-{
-    return prettyFunction.c_str();
-}
+#include <QDateTime>
 
 
-inline std::string pFuncInfo(const std::string prettyFunction)
-{
-    size_t colons = prettyFunction.rfind("::");
-    // workaround for functions which are not belong to any class
-    if (colons == std::string::npos)
-        colons = prettyFunction.rfind("(");
-    size_t begin = prettyFunction.substr(0, colons).rfind(" ") + 1;
-    size_t end = prettyFunction.rfind("(") - begin;
-
-    return "[" + prettyFunction.substr(begin, end) + "]";
-}
+void debugString(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
 
-#define PDEBUG pDebug(pFuncInfo(__PRETTY_FUNCTION__))
-
-#endif /* PRETTY_DEBUG_H */
+#endif /* PRETTY_DEBUG_TIME_H */
